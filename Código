@@ -1,0 +1,127 @@
+import networkx as nx
+import matplotlib.pyplot as plt
+
+org = nx.DiGraph() # org é a sigla para organograma
+
+org.add_node('CEO')
+org.add_node('G_1')
+org.add_node('G_2')
+org.add_node('G_3')
+org.add_node('G_4')
+org.add_node('A_1')
+org.add_node('A_2')
+org.add_node('A_3')
+org.add_node('A_4')
+org.add_node('A_5')
+org.add_node('A_6')
+org.add_node('A_7')
+org.add_node('A_8')
+org.add_node('A_9')
+org.add_node('A_10')
+org.add_node('A_11')
+org.add_node('A_12')
+org.add_node('E_1')
+org.add_node('E_2')
+
+
+org.add_edge ('CEO', 'G_1')
+org.add_edge ('CEO', 'G_2')
+org.add_edge ('CEO', 'G_3')
+org.add_edge ('CEO', 'G_4')
+
+org.add_edge ('G_1', 'A_1')
+org.add_edge ('G_1', 'A_2')
+org.add_edge ('G_1', 'A_3')
+
+org.add_edge ('G_2', 'A_4')
+org.add_edge ('G_2', 'A_5')
+org.add_edge ('G_2', 'A_6')
+
+
+
+org.add_edge ('G_3', 'A_7')
+org.add_edge ('G_3', 'A_8')
+org.add_edge ('G_3', 'A_9')
+
+org.add_edge ('G_4', 'A_10')
+org.add_edge ('G_4', 'A_11')
+org.add_edge ('G_4', 'A_12')
+
+org.add_edge ('G_4', 'E_1')
+org.add_edge ('G_4', 'E_2')
+
+fixado = nx.spring_layout(org, seed = 42)
+fixado = {'CEO': [0, 0],
+ 'G_1': [-1.5, -1],
+ 'G_2': [-0.5 , -1],
+ 'G_3': [0.5,  -1],
+ 'G_4': [1.5, -1],
+ 'A_1': [-2.5, -2.5],
+ 'A_2': [-2, -2.5],
+ 'A_3': [-1.5, -2.5],
+ 'A_4': [-1, -2.5],
+ 'A_5': [-0.5,-2.5],
+ 'A_6': [ 0, -2.5],
+ 'A_7': [0.5, -2.5],
+ 'A_8': [1, -2.5],
+ 'A_9': [1.5, -2.5],
+ 'A_10': [2, -2.5],
+ 'A_11': [2.5,-2.5],
+ 'A_12': [3, -2.5],
+ 'E_1': [1.25, -1.5],
+ 'E_2': [2.5, -1.5]}
+
+plt.figure(figsize=(10, 10))
+
+nx.draw_networkx(org, fixado, node_color = 'yellow')
+nx.is_tree(org)
+org.nodes
+'CEO' in org.nodes   
+nx.shortest_path(org, 'CEO', 'E_1')
+[path for path in nx.all_simple_paths(org, 'CEO', 'A_3')]
+def caminho(a, b, c):
+    '''
+    Funcão indicar o melhor caminho entre dois pontos na hierarquia.
+    args a: Árvore do organograma
+         b: Funcionário de partida
+         c: Funcionário de destino
+    '''
+    lista = []
+    for i in nx.all_simple_paths(a, b, c):
+        lista.append(i)
+    
+    return f'O caminho entre {b} e {c} é {lista[0]}'
+
+caminho(org, 'CEO', 'A_11') 
+
+org.nodes
+'maria' in org.nodes
+def check(a, b):
+    '''
+    Funcão para saber se um funcioário está no organograma.
+    args a: Árvore onde será buscado o funcionário
+         b: Funcionário que será buscado
+    '''
+    if b in a.nodes:
+        return f'{b} trabalha na empresa'
+    else:
+        return f'{b} não trabalha na empresa'
+    
+check(org, 'G_4')
+
+Responda: qual a complexidade das funções/métodos que vc implementou/utilizou?
+    Ambas as funções são O(n), posto que percorrem, na pior das hipóteses, uma lista inteira à procura do input dentro dessa lista
+
+
+org._adj
+
+nx.adjacency_matrix(org).todense()
+
+a = nx.adjacency_matrix(org).todense()
+print(a)
+
+nx.adjacency_matrix(org)
+
+with open('prova.csv',mode='w', encoding="utf-8") as f:
+    for i in nx.adjacency_matrix(org).todense():
+        f.write(f"\n{i}" )
